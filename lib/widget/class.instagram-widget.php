@@ -77,7 +77,7 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['clientid'] = strip_tags( $new_instance['clientid'] );
+		$instance['clientID'] = strip_tags( $new_instance['clientID'] );
 		$instance['userID'] = strip_tags( $new_instance['userID'] );
 		$instance['count'] = strip_tags( $new_instance['count'] );
 
@@ -86,17 +86,16 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 
 
 	function form( $instance ) {
-		$defaults = array( );
-		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
+		?>
 
-		<p><label for="<?php echo $this->get_field_id( 'clientid' ); ?>">Instagram ClientID:</label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'clientid' ); ?>" name="<?php echo $this->get_field_name( 'clientid' ); ?>" value="<?php echo $instance['clientid']; ?>" type="text"  /></p>
+		<p><label for="<?php echo $this->get_field_id( 'clientID' ); ?>">Instagram ClientID:</label>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'clientID' ); ?>" name="<?php echo $this->get_field_name( 'clientID' ); ?>" value="<?php if ( isset( $instance['clientID'] ) ) { echo $instance['clientID']; } ?>" type="text"  /></p>
 
 		<p><label for="<?php echo $this->get_field_id( 'userID' ); ?>">Instagram UserID:</label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'userID' ); ?>" name="<?php echo $this->get_field_name( 'userID' ); ?>" value="<?php echo $instance['userID']; ?>" type="text"  /></p>
+		<input class="widefat" id="<?php echo $this->get_field_id( 'userID' ); ?>" name="<?php echo $this->get_field_name( 'userID' ); ?>" value="<?php if ( isset( $instance['userID'] ) ) { echo $instance['userID']; } ?>" type="text"  /></p>
 
 		<p><label for="<?php echo $this->get_field_id( 'count' ); ?>">Number of photos to show:</label>
-		<input id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php echo $instance['count']; ?>" type="text" value="5" size="3" /></p>
+		<input id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php if ( isset( $instance['count'] ) ) { echo $instance['count']; } ?>" type="text" size="3" /></p>
 
 	<?php
 	}

@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Simple Instagram  Widget
  * Description: A widget that displays Instagram photos
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Ty Carlson
  * Author URI: http://www.tywayne.com
  */
