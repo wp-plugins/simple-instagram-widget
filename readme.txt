@@ -4,7 +4,7 @@ Donate link: http://www.tywayne.com/simple-instagram-widget
 Tags: instagram, plugin, widget
 Requires at least: 3.0
 Tested up to: 3.9
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,9 @@ The plugin comes with very little styling. You can override and style as needed 
 
 == Changelog ==
 
+= 1.0.2 =
+* Fixed bug where ClientID wasn't saving sometimes
+
 = 1.0.1 =
 * Remove undefined index notices on clean install
 
@@ -58,7 +61,3 @@ Remove undefined index notices on clean install
 
 = 1.0 =
 Initial Version.
-
-
-== Arbitrary section ==
-

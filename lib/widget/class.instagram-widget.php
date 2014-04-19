@@ -35,7 +35,7 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 		//Our variables from the widget settings.
 		$userID = $instance['userID'];
 		$count = $instance['count'];
-		$clientID = $instance['clientid'];
+		$clientID = $instance['clientID'];
 
 		echo $before_widget;
 
