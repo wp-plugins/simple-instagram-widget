@@ -33,9 +33,14 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 		);
 
 		//Our variables from the widget settings.
-		$userID = $instance['userID'];
+		if ( ! empty( $instance['userID_converted'] ) ) {
+			$userID = $instance['userID_converted'];
+		}
+		if ( ! empty( $instance['hashtag'] ) ) {
+			$hashtag = $instance['hashtag'];
+		}
 		$count = $instance['count'];
-		$clientID = $instance['clientid'];
+		
 
 		echo $before_widget;
 
@@ -60,9 +65,14 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 					});
 
 					$('.simple-instagram-widget-wrapper').instagram({
-						userId: '<?php echo $userID; ?>',
-						clientId: '<?php echo $clientID; ?>',
-						count: '<?php echo $instance['count']; ?>'
+						clientId: '972fed4ff0d5444aa21645789adb0eb0',
+						count: '<?php echo $instance['count']; ?>',
+						<?php if ( ! empty( $userID ) ) { ?>
+							userId: '<?php echo $userID; ?>',
+						<?php } ?>
+						<?php if ( ! empty( $hashtag ) ) { ?>
+							hash: '<?php echo $hashtag; ?>',
+						<?php } ?>
 					});
 				});
 			</script>
@@ -76,28 +86,45 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-
-		$instance['clientid'] = strip_tags( $new_instance['clientid'] );
+		
 		$instance['userID'] = strip_tags( $new_instance['userID'] );
 		$instance['count'] = strip_tags( $new_instance['count'] );
+		$instance['hashtag'] = strip_tags( $new_instance['hashtag'] );
+
+		$username_response = wp_remote_get( 'https://api.instagram.com/v1/users/search?q=' . $instance['userID'] . '&client_id=972fed4ff0d5444aa21645789adb0eb0' );
+		$username_response_data = json_decode( $username_response['body'], true );
+		
+		$instance['userID_converted'] = $username_response_data['data'][0]['id'];
 
 		return $instance;
 	}
 
 
 	function form( $instance ) {
-		$defaults = array( );
-		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
+		?>
+		
+		<div class="item-wrapper">
+			<p>
+				<label>Display Images based on:</label><br />
+				<label><input id="instagram_type_username" name="instagram_type_select" type="radio" value="username" <?php if ( ! empty( $instance['userID'] ) ) { echo 'checked'; } ?> />Username</label><br />
+				<label><input id="instagram_type_radio" name="instagram_type_select" type="radio" value="hashtag" <?php if ( ! empty( $instance['hashtag'] ) ) { echo 'checked'; } ?> />Hashtag</label>
+			</p>
+		</div>
 
-		<p><label for="<?php echo $this->get_field_id( 'clientid' ); ?>">Instagram ClientID:</label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'clientid' ); ?>" name="<?php echo $this->get_field_name( 'clientid' ); ?>" value="<?php echo $instance['clientid']; ?>" type="text"  /></p>
+		<div class="item-wrapper instagram-switch" id="username" <?php if ( empty( $instance['userID'] ) ) { echo 'style="display:none;"'; } ?> >
+			<p><label for="<?php echo $this->get_field_id( 'userID' ); ?>">Username:</label>
+			<input class="widefat" id="<?php echo $this->get_field_id( 'userID' ); ?>" name="<?php echo $this->get_field_name( 'userID' ); ?>" value="<?php if ( isset( $instance['userID'] ) ) { echo $instance['userID']; } ?>" type="text"  /></p>
+		</div>
 
-		<p><label for="<?php echo $this->get_field_id( 'userID' ); ?>">Instagram UserID:</label>
-		<input class="widefat" id="<?php echo $this->get_field_id( 'userID' ); ?>" name="<?php echo $this->get_field_name( 'userID' ); ?>" value="<?php echo $instance['userID']; ?>" type="text"  /></p>
-
-		<p><label for="<?php echo $this->get_field_id( 'count' ); ?>">Number of photos to show:</label>
-		<input id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php echo $instance['count']; ?>" type="text" value="5" size="3" /></p>
-
+		<div class="item-wrapper instagram-switch" id="hashtag" <?php if ( empty( $instance['hashtag'] ) ) { echo 'style="display:none;"'; } ?> >
+			<p><label for="<?php echo $this->get_field_id( 'hashtag' ); ?>">Hashtag:</label>
+			<input class="widefat" id="<?php echo $this->get_field_id( 'hashtag' ); ?>" name="<?php echo $this->get_field_name( 'hashtag' ); ?>" value="<?php if ( isset( $instance['hashtag'] ) ) { echo $instance['hashtag']; } ?>" type="text"  /></p>
+		</div>
+		
+		<div class="item-wrapper">
+			<p><label for="<?php echo $this->get_field_id( 'count' ); ?>">Number of photos to show:</label>
+			<input id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" value="<?php if ( isset( $instance['count'] ) ) { echo $instance['count']; } ?>" type="text" size="3" /></p>
+		</div>
 	<?php
 	}
 }

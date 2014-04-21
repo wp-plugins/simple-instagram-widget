@@ -19,5 +19,14 @@ The plugin comes with very little styling. You can override and style as needed 
 
 # Release History #
 
+#### 1.1 ####
+Add support for hashtag, remove dependancy on Instagram ClientID
+
+#### 1.0.2 ####
+Fixed bug where ClientID wasn't saving sometimes
+
+#### 1.0.1 ####
+Remove undefined index notices on clean install
+
 #### 1.0 ####
 Initial Release
