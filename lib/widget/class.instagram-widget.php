@@ -35,6 +35,8 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 		//Our variables from the widget settings.
 		if ( ! empty( $instance['userID_converted'] ) ) {
 			$userID = $instance['userID_converted'];
+		} else if ( ! empty( $instance['userID'] ) ) {
+			$userID = $instance['userID'];
 		}
 		if ( ! empty( $instance['hashtag'] ) ) {
 			$hashtag = $instance['hashtag'];
