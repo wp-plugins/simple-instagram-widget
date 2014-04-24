@@ -8,9 +8,10 @@ Uses [the Instagram jQuery Plugin](https://github.com/potomak/jquery-instagram) 
 ### Usage Instructions ###
 1. Install/activate the widget on WordPress.
 2. Add widget to desired widget area.
-3. Insert your Instagram ClientID. You can obtain a ClientID by registering a new Instagram API client app [here](http://instagram.com/developer/clients/register/).
-4. Insert the Instagram UserID of the user who's photos you'd like to display. Instructions on find your UserID can be found [here](http://jelled.com/instagram/lookup-user-id)
-5. Insert the number of how many photos you'd like to show. 
+3. Choose whether you'd like to display by username or by hashtag.
+4. Insert the Instagram Username of the user who's photos you'd like to display.  - or - 
+5. Insert the hashtag of the search for photos you'd like to make.
+6. Insert the number of how many photos you'd like to show. 
 
 
 ### Styling Instructions ###
@@ -18,6 +19,15 @@ The plugin comes with very little styling. You can override and style as needed 
 
 
 # Release History #
+
+#### 1.1.3 ####
+Keep original wrapper class for back compat
+
+#### 1.1.2 ####
+Fix bug that caused issues when multiple widgets were added to a page.
+
+#### 1.1.1 ####
+Allow use of username instead of userID - please switch to using the username instead
 
 #### 1.1 ####
 Add support for hashtag, remove dependancy on Instagram ClientID

@@ -83,7 +83,7 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 					});
 				});
 			</script>
-			<div class="simple-instagram-widget-wrapper-<?php echo $this->instance_count; ?> clearfix">
+			<div class="simple-instagram-widget-wrapper simple-instagram-widget-wrapper-<?php echo $this->instance_count; ?> clearfix">
 
 			</div>
 
