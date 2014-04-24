@@ -14,7 +14,11 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 
 		$this->WP_Widget(
 			'simple-instagram-widget',
-			'Simple Instagram Widget', $widget_ops, $control_ops );
+			'Simple Instagram Widget', $widget_ops, $control_ops 
+		);
+		
+		$this->instance_count = 0;
+		
 	}
 
 	function widget( $args, $instance ) {
@@ -42,6 +46,7 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 			$hashtag = $instance['hashtag'];
 		}
 		$count = $instance['count'];
+		$this->instance_count++;
 		
 
 		echo $before_widget;
@@ -50,7 +55,7 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 			<script>
 				jQuery(function($) {
 
-					$('.simple-instagram-widget-wrapper').on('didLoadInstagram', function(event, response) {
+					$('.simple-instagram-widget-wrapper-<?php echo $this->instance_count; ?>').on('didLoadInstagram', function(event, response) {
 
 						var data = response.data;
 
@@ -61,12 +66,12 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 
 							var output = '<div class="simple-instagram-widget-image"><a href="'+image_link+'" target="_blank"><img src="'+image_src+'" alt="'+image_caption+'" ></a></div>';
 
-							$('.simple-instagram-widget-wrapper').append(output);
+							$('.simple-instagram-widget-wrapper-<?php echo $this->instance_count; ?>').append(output);
 						}
 
 					});
 
-					$('.simple-instagram-widget-wrapper').instagram({
+					$('.simple-instagram-widget-wrapper-<?php echo $this->instance_count; ?>').instagram({
 						clientId: '972fed4ff0d5444aa21645789adb0eb0',
 						count: '<?php echo $instance['count']; ?>',
 						<?php if ( ! empty( $userID ) ) { ?>
@@ -78,7 +83,7 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 					});
 				});
 			</script>
-			<div class="simple-instagram-widget-wrapper clearfix">
+			<div class="simple-instagram-widget-wrapper-<?php echo $this->instance_count; ?> clearfix">
 
 			</div>
 
