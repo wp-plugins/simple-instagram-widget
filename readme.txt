@@ -32,6 +32,9 @@ The plugin comes with very little styling. You can override and style as needed 
 
 == Changelog ==
 
+= 1.2 =
+Add support for shortcode [simple_instagram hashtag="" username="" count="" ]
+
 = 1.1.3 =
 Keep original wrapper class for back compat
 
