@@ -4,7 +4,7 @@ Donate link: http://www.tywayne.com/simple-instagram-widget
 Tags: instagram, plugin, widget
 Requires at least: 3.0
 Tested up to: 3.9
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,9 @@ The plugin comes with very little styling. You can override and style as needed 
 1. WordPress Widget fields
 
 == Changelog ==
+
+= 1.2.1 =
+Fix mistake where update to v1.2 didn't include correct files
 
 = 1.2 =
 Add support for shortcode [simple_instagram hashtag="" username="" count="" ]
