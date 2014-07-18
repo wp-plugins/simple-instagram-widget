@@ -20,6 +20,9 @@ The plugin comes with very little styling. You can override and style as needed 
 
 # Release History #
 
+#### 1.2.2 ####
+Add missing styles for shortcode
+
 #### 1.2.1 ####
 Fix mistake where update to v1.2 didn't include correct files
 
