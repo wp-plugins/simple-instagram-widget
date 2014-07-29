@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Simple Instagram  Widget
  * Description: A widget that displays Instagram photos
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: Ty Carlson
  * Author URI: http://www.tywayne.com
  */
@@ -26,7 +26,7 @@ function tc_simple_instagram_admin_enqueue_scripts($hook) {
 	
 	wp_enqueue_script(
 		'admin-instagram',
-		plugins_url( 'lib/widget/js/admin-instagram.js', __FILE__),
+		plugins_url( 'lib/js/admin-instagram.js', __FILE__),
 		array('jquery')
 	);
 
