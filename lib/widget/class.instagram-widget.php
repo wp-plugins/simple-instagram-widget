@@ -26,13 +26,12 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 
 		wp_enqueue_style(
 			'simple-instagram-style',
-			plugins_url('css/simple-instagram-widget.css', __FILE__),
-			array()
+			plugin_dir_path( __FILE__ ) . '/lib/css/simple-instagram-widget.css'
 		);
 
 		wp_enqueue_script(
 			'simple-instagram-script',
-			plugins_url('js/instagram.js', __FILE__),
+			plugin_dir_path( __FILE__ ) . '/lib/js/instagram.js', 
 			array('jquery')
 		);
 
