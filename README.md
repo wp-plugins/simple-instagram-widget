@@ -20,6 +20,9 @@ The plugin comes with very little styling. You can override and style as needed 
 
 # Release History #
 
+#### 1.2.4 ####
+Bug Fix: properly delegate change events in widget admin
+
 #### 1.2.3 ####
 Enqueue admin js script from correct location
 
