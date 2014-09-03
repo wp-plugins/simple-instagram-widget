@@ -20,6 +20,28 @@ The plugin comes with very little styling. You can override and style as needed 
 
 # Release History #
 
+####1.2.6 ####
+Bug Fix: make sure we're accurately looking up and converted a username to userid
+
+####1.2.5 ####
+Bug Fix: fix undefined index notice in shortcode
+Testing for WordPress v4.0
+
+#### 1.2.4 ####
+Bug Fix: properly delegate change events in widget admin
+
+#### 1.2.3 ####
+Enqueue admin js script from correct location
+
+#### 1.2.2 ####
+Add missing styles for shortcode
+
+#### 1.2.1 ####
+Fix mistake where update to v1.2 didn't include correct files
+
+#### 1.2 ####
+Add support for shortcode [simple_instagram hashtag="" username="" count="" ]
+
 #### 1.1.3 ####
 Keep original wrapper class for back compat
 

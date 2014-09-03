@@ -26,13 +26,12 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 
 		wp_enqueue_style(
 			'simple-instagram-style',
-			plugins_url('css/simple-instagram-widget.css', __FILE__),
-			array()
+			plugin_dir_path( __FILE__ ) . '/lib/css/simple-instagram-widget.css'
 		);
 
 		wp_enqueue_script(
 			'simple-instagram-script',
-			plugins_url('js/instagram.js', __FILE__),
+			plugin_dir_path( __FILE__ ) . '/lib/js/instagram.js', 
 			array('jquery')
 		);
 
@@ -101,7 +100,13 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 		$username_response = wp_remote_get( 'https://api.instagram.com/v1/users/search?q=' . $instance['userID'] . '&client_id=972fed4ff0d5444aa21645789adb0eb0' );
 		$username_response_data = json_decode( $username_response['body'], true );
 		
-		$instance['userID_converted'] = $username_response_data['data'][0]['id'];
+		$instance['userID_converted'] = '';
+		
+		foreach ( $username_response_data['data'] as $data ) {
+			if ( $data['username'] == $instance['userID'] ) {
+				$instance['userID_converted'] = $data['id'];
+			}
+		}
 
 		return $instance;
 	}
