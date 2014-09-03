@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Simple Instagram  Widget
  * Description: A widget that displays Instagram photos
- * Version: 1.2.4
+ * Version: 1.2.5
  * Author: Ty Carlson
  * Author URI: http://www.tywayne.com
  */
@@ -64,11 +64,13 @@ function tc_simple_instagram_shortcode($atts = '') {
 	$instance_count = 0;
 	$instance_count++;
 	
-	
-	$username_response = wp_remote_get( 'https://api.instagram.com/v1/users/search?q=' . $atts['username'] . '&client_id=972fed4ff0d5444aa21645789adb0eb0' );
-	$username_response_data = json_decode( $username_response['body'], true );
+	if ( $atts['username'] ) {
+		$username_response = wp_remote_get( 'https://api.instagram.com/v1/users/search?q=' . $atts['username'] . '&client_id=972fed4ff0d5444aa21645789adb0eb0' );
+		$username_response_data = json_decode( $username_response['body'], true );
 		
-	$atts['username_converted'] = $username_response_data['data'][0]['id'];
+		$atts['username_converted'] = $username_response_data['data'][0]['id'];
+	}
+	
 	
 	$return = '<script>' . "\n" ;
 	$return .= 		'jQuery(function($) {' . "\n" ;
