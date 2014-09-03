@@ -20,6 +20,9 @@ The plugin comes with very little styling. You can override and style as needed 
 
 # Release History #
 
+####1.2.6 ####
+Bug Fix: make sure we're accurately looking up and converted a username to userid
+
 ####1.2.5 ####
 Bug Fix: fix undefined index notice in shortcode
 Testing for WordPress v4.0
