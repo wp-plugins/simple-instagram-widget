@@ -2,23 +2,11 @@
 
 class TC_Simple_Instagram_Widget extends WP_Widget {
 
-	function tc_simple_instagram_widget() {
-		$widget_ops = array(
-			'classname' => 'simple-instagram-widget',
-			'description' => 'A widget that displays a set of Instagram photos'
-		);
+	private $instance_count = 0;
 
-		$control_ops = array(
-			'id_base' => 'simple-instagram-widget'
-		);
-
-		$this->WP_Widget(
-			'simple-instagram-widget',
-			'Simple Instagram Widget', $widget_ops, $control_ops 
-		);
-		
-		$this->instance_count = 0;
-		
+	function __construct() {
+		$widget_ops = array( 'classname' => 'simple-instagram-widget', 'description' => 'A widget that displays a set of Instagram photos' );
+		parent::__construct( 'simple-instagram-widget', 'Simple Instagram Widget', $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -46,7 +34,9 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 		}
 		$count = $instance['count'];
 		$this->instance_count++;
-		
+
+		$settings = get_option('tc_ig_settings');
+		$client_id = $settings['tc_ig_client_id'];
 
 		echo $before_widget;
 
@@ -59,11 +49,12 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 						var data = response.data;
 
 						for( var key in data ) {
-							var image_src = data[key]['images']['standard_resolution']['url'];
-							var image_caption = data[key]['caption']['text'];
-							var image_link = data[key]['link'];
+							var image_src = data[key]['images']['standard_resolution']['url'],
+								image_caption = data[key]['caption']['text'],
+								image_link = data[key]['link'],
+								output;
 
-							var output = '<div class="simple-instagram-widget-image"><a href="'+image_link+'" target="_blank"><img src="'+image_src+'" alt="'+image_caption+'" ></a></div>';
+							output = '<div class="simple-instagram-widget-image"><a href="'+image_link+'" target="_blank"><img src="'+image_src+'" alt="'+image_caption+'" ></a></div>';
 
 							$('.simple-instagram-widget-wrapper-<?php echo $this->instance_count; ?>').append(output);
 						}
@@ -71,7 +62,7 @@ class TC_Simple_Instagram_Widget extends WP_Widget {
 					});
 
 					$('.simple-instagram-widget-wrapper-<?php echo $this->instance_count; ?>').instagram({
-						clientId: '972fed4ff0d5444aa21645789adb0eb0',
+						clientId: '<?php echo $client_id; ?>',
 						count: '<?php echo $instance['count']; ?>',
 						<?php if ( ! empty( $userID ) ) { ?>
 							userId: '<?php echo $userID; ?>',

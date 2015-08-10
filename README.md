@@ -20,6 +20,15 @@ The plugin comes with very little styling. You can override and style as needed 
 
 # Release History #
 
+#### 1.3.0 ####
+Important Update!
+This plugin no longer supplies an Instagram Client ID. You must supply your own and insert at Settings -> Simple Instagram Widget.
+Client ID can be found by registering an application on the [Instagram Developer site](https://instagram.com/developer)
+If you do not create and insert an Instagram Client ID, the plugin will no longer work. 
+
+-- Also --
+Bug Fix: Use PHP5 style constructors for WP_Widget to fix notices for Wordpress 4.3
+
 ####1.2.6 ####
 Bug Fix: make sure we're accurately looking up and converted a username to userid
 
