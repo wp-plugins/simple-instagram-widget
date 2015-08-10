@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Simple Instagram  Widget
  * Description: A widget that displays Instagram photos
- * Version: 1.2.6
+ * Version: 1.3.0
  * Author: Ty Carlson
  * Author URI: http://www.tywayne.com
  */
@@ -16,7 +16,15 @@ add_action( 'widgets_init', 'tc_register_simple_instagram_widget' );
 
 /* Load the widget class */
 require_once( plugin_dir_path( __FILE__ ) . '/lib/widget/class.instagram-widget.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'settings.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'upgrade-notice.php' );
 
+
+function tc_simple_instagram_plugin_row_actions( $actions, $plugin_file, $plugin_data, $context ) {
+	$actions['settings'] = '<a href="' . get_admin_url( NULL, 'options-general.php?page=tc_ig_settings' ) . '">Settings</a>';
+	return $actions;
+}
+add_filter( 'plugin_action_links_simple-instagram-widget/init.php', 'tc_simple_instagram_plugin_row_actions', 10, 4 );
 
 // Load admin script on widgets page
 function tc_simple_instagram_admin_enqueue_scripts($hook) {
@@ -63,15 +71,20 @@ function tc_simple_instagram_shortcode($atts = '') {
 
 	$instance_count = 0;
 	$instance_count++;
-	
+
+	$settings = get_option('tc_ig_settings');
+	$client_id = $settings['tc_ig_client_id'];
+
 	if ( $atts['username'] ) {
-		$username_response = wp_remote_get( 'https://api.instagram.com/v1/users/search?q=' . $atts['username'] . '&client_id=972fed4ff0d5444aa21645789adb0eb0' );
+		$username_response = wp_remote_get( 'https://api.instagram.com/v1/users/search?q=' . $atts['username'] . '&client_id=' . $client_id );
 		$username_response_data = json_decode( $username_response['body'], true );
 		
 		$atts['username_converted'] = '';
-		foreach ( $username_response_data['data'] as $data ) {
-			if ( $data['username'] == $atts['username'] ) {
-				$atts['username_converted'] = $data['id'];
+		if ( isset( $username_response_data['data'] ) ){
+			foreach ( $username_response_data['data'] as $data ) {
+				if ( $data['username'] == $atts['username'] ) {
+					$atts['username_converted'] = $data['id'];
+				}
 			}
 		}
 	}
@@ -96,7 +109,7 @@ function tc_simple_instagram_shortcode($atts = '') {
 	$return .=			'});' . "\n" ;
 
 	$return .=			'$(".simple-instagram-shortcode-wrapper-' . $instance_count . '").instagram({' . "\n" ;
-	$return .=				'clientId: \'972fed4ff0d5444aa21645789adb0eb0\',' . "\n" ;
+	$return .=				'clientId: \'' . $client_id . '\',' . "\n" ;
 	$return .=				'count: \'' . $atts['count'] . '\',' . "\n" ;
 	if ( $atts['username'] != '' ) {
 		$return .=					'userId: \'' . $atts['username_converted'] . '\'' . "\n" ;
